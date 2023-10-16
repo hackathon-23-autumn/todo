@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  next-app:
+    container_name: next-app
+    build:
+      context: ./next-app
+      dockerfile: dev.Dockerfile
+    ports:
+      - 3000:3000
+  
+  postgres:
+    container_name: postgres
+    build:
+      context: ./postgres
+      dockerfile: dev.Dockerfile
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+    volumes:
+      - db-store:/var/lib/postgresql/data
+
+volumes:
+  db-store:
