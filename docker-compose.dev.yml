@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 
 services:
   next-app:
@@ -8,19 +8,32 @@ services:
       dockerfile: dev.Dockerfile
     ports:
       - 3000:3000
+    depends_on:
+      - postgres
   
   postgres:
     container_name: postgres
+    env_file:
+      - ./.env
     build:
       context: ./postgres
       dockerfile: dev.Dockerfile
     ports:
-      - 5432:5432
+      - ${DB_PORT}:5432
     environment:
-      POSTGRES_USER: root
-      POSTGRES_PASSWORD: root
+      TZ: ${DB_LANG}
+      LANG: ${DB_LANG}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
     volumes:
       - db-store:/var/lib/postgresql/data
+    healthcheck:
+      test: pg_isready
+      interval: 1m30s
+      timeout: 30s
+      retries: 5
+      start_period: 30s
 
 volumes:
   db-store:
