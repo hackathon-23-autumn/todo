@@ -38,6 +38,7 @@
     "eslint-config-next": "13.5.4",
     "eslint-plugin-storybook": "^0.6.15",
     "postcss": "^8",
+    "prettier-plugin-tailwindcss": "^0.5.6",
     "prisma": "^5.4.2",
     "prisma-erd-generator": "^1.11.1",
     "storybook": "^7.4.6",
@@ -47,5 +48,9 @@
   },
   "prisma": {
     "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
+  },
+  "volta": {
+    "node": "18.18.2",
+    "pnpm": "8.9.2"
   }
 }
