@@ -3,6 +3,8 @@
 
 generator client {
   provider = "prisma-client-js"
+  binaryTargets   = ["native"]
+  seed            = "ts-node prisma/seed.ts"
 }
 
 datasource db {
@@ -77,3 +79,9 @@ model Todo {
   userId    String
 }
 
+
+// ER図の出力 (pnpm install --save-dev prisma-erd-generatorが必要)
+generator erd {
+  provider = "prisma-erd-generator"
+  output = "./ERD.png"
+}
