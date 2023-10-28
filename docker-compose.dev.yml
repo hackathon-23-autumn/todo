@@ -10,7 +10,7 @@ services:
       - 3000:3000
     depends_on:
       - postgres
-  
+
   postgres:
     container_name: postgres
     env_file:
@@ -21,7 +21,7 @@ services:
     ports:
       - ${DB_PORT}:5432
     environment:
-      TZ: ${DB_LANG}
+      TZ: ${DB_TZ}
       LANG: ${DB_LANG}
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
