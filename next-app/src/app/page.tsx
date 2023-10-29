@@ -4,7 +4,7 @@ import router from "next/router"
 import { Button } from "react-bootstrap"
 import { useRouter } from "next/navigation"
 
-export default function Home() {
+const Home = () => {
   const router = useRouter()
 
   return (
@@ -20,3 +20,5 @@ export default function Home() {
     </main>
   )
 }
+
+export default Home
