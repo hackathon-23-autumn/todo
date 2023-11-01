@@ -1,10 +1,13 @@
 "use client"
 
-import { AppRouterContext } from "next/dist/shared/lib/app-router-context.shared-runtime"
-import Link from "next/link"
-import router, { useRouter } from "next/router"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Button } from "react-bootstrap"
+
+type Todo = {
+  id: string
+  todo: string
+  completed: boolean
+}
 
 const Todo = () => {
   const [text, setText] = useState<string>("")
@@ -27,6 +30,21 @@ const Todo = () => {
     newTodos.splice(index, 1)
     setTodos(newTodos)
   }
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch("/api/todos")
+      if (response.ok) {
+        const jsonData: Todo[] = await response.json()
+        const todoArray: string[] = jsonData.map((item) => item.todo)
+        setTodos(todoArray)
+      } else {
+        console.error("API request failed")
+      }
+    }
+
+    fetchData()
+  }, [])
 
   return (
     <main>
