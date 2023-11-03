@@ -9,6 +9,8 @@ async function main() {
       id: "default_user", // デフォルトユーザーID
       name: "Alice",
       email: "alice@prisma.io",
+      emailVerified: null, // emailVerifiedフィールドがNULLを許容している場合
+      image: null, // imageフィールドがNULLを許容している場合
       // 他の必要なデータをここに記述します
     },
   });
