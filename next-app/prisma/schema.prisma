@@ -81,7 +81,7 @@ model Todo {
 
 
 // ER図の出力 (pnpm install --save-dev prisma-erd-generatorが必要)
-generator erd {
-  provider = "prisma-erd-generator"
-  output = "./ERD.png"
-}
+// generator erd {
+//   provider = "prisma-erd-generator"
+//   output = "./ERD.png"
+// }
