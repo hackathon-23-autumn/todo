@@ -8,6 +8,8 @@ services:
       dockerfile: dev.Dockerfile
     ports:
       - 3000:3000
+    volumes: # 開発即時反映のためのボリュームマウント
+      - ./next-app:/app
     depends_on:
       - postgres
 
@@ -29,7 +31,7 @@ services:
     volumes:
       - db-store:/var/lib/postgresql/data
     healthcheck:
-      test: pg_isready
+      test: ["CMD-SHELL", "pg_isready -d ${DB_NAME} -U ${DB_USER}"]
       interval: 1m30s
       timeout: 30s
       retries: 5
