@@ -3,8 +3,12 @@ FROM node:18.18-alpine
 # 開発即時反映用の環境変数
 WORKDIR /app
 
-COPY . .
+RUN npm install -g pnpm
 
-RUN yarn global add pnpm && pnpm i
+ENV NODE_ENV=development
 
-CMD pnpm dev
+COPY package.json pnpm-lock.yaml ./
+
+RUN pnpm install --frozen-lockfile
+
+CMD ["pnpm", "run", "dev"]
