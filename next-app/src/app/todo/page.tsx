@@ -1,7 +1,7 @@
 "use client"
 
-import Link from "next/link"
 import { useEffect, useState } from "react"
+import { Button } from "react-bootstrap"
 
 type Todo = {
   id: string
@@ -56,9 +56,9 @@ const Todo = () => {
           value={text}
           onChange={changeText}
         />
-        <button onClick={addTodos}>
+        <Button variant="primary" onClick={addTodos}>
           add
-        </button>
+        </Button>
       </div>
 
       <div>
@@ -66,14 +66,13 @@ const Todo = () => {
           {todos.map((todo, index) => (
             <li key={todo}>
               {todo}
-              <button onClick={() => deleteTodo(index)}>
+              <Button variant="primary" onClick={() => deleteTodo(index)}>
                 done
-              </button>
+              </Button>
             </li>
           ))}
         </ul>
       </div>
-      <Link href="/">back</Link>
     </main>
   )
 }

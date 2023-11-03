@@ -2,8 +2,8 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import 'bootstrap/dist/css/bootstrap.min.css'
 import Image from 'next/image'
-import Head from './head'
 
 // Next.js Tailwind Css Importing Stylesから追記
 export const metadata: Metadata = {
@@ -16,7 +16,14 @@ const inter = Inter({ subsets: ['latin'] })
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="ja">
-      <Head />
+      <head>
+        <meta charSet="utf-8"></meta>
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1"></meta>
+        <title>What to to, to live you?</title>
+      </head>
+
       <body className={inter.className}>
         <div className="container text-center d-flex align-items-center vh-100">
           <div className="row">
