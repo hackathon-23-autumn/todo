@@ -1,7 +1,5 @@
 "use client"
 
-import router from "next/router"
-import { Button } from "react-bootstrap"
 import { useRouter } from "next/navigation"
 
 const Home = () => {

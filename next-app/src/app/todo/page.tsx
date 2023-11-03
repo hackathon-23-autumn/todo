@@ -4,7 +4,7 @@ import { useEffect, useState } from "react" // テキスト入力とTodoリス�
 import { Button } from "react-bootstrap"
 import AddTodo from "@/components/AddTodo"
 import MyTodoList from "@/components/MyTodoList"
-
+import Link from "next/link"
 
 type Todo = {
   id: string
@@ -61,6 +61,9 @@ const Todo = () => {
           <AddTodo  changeText={changeText} addTodos={addTodos} text={text} />
           <MyTodoList  todos={todos} deleteTodo={deleteTodo} />
         </div>
+
+        <Link href="/">back</Link>
+
       </div>
     </main>
   )
