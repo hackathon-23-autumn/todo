@@ -56,7 +56,6 @@ const Todo = () => {
   return (
     <main className="flex-col py-2 px-4">
       <label className="form-label text-4xl font-bold ">todo</label>
-      <div className="w-full max-w-xl mt-5">
         <div className="w-full py-6 px-8 bg-slate-200 shadow-md rounded-lg">
           <AddTodo  changeText={changeText} addTodos={addTodos} text={text} />
           <MyTodoList  todos={todos} deleteTodo={deleteTodo} />
@@ -64,7 +63,6 @@ const Todo = () => {
 
         <Link href="/">back</Link>
 
-      </div>
     </main>
   )
 }

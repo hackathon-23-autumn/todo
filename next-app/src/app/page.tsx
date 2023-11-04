@@ -7,9 +7,7 @@ const Home = () => {
 
   return (
     <main>
-      <label className="form-label font-bold focus:border-blue-500">
-        login
-      </label>
+      <label className="form-label text-4xl font-bold ">login</label>
       <input
         type="email"
         className="form-control w10 border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
