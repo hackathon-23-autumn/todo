@@ -1,7 +1,7 @@
 // schema.prismaのUserテーブルにデフォルトユーザを作成する
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from "@prisma/client"
 
-const prisma = new PrismaClient();
+const prisma = new PrismaClient()
 
 async function main() {
   const user = await prisma.user.create({
@@ -13,16 +13,16 @@ async function main() {
       image: null, // imageフィールドがNULLを許容している場合
       // 他の必要なデータをここに記述します
     },
-  });
+  })
 
-  console.log({ user });
+  console.log({ user })
 }
 
 main()
   .catch((e) => {
-    console.error(e);
-    process.exit(1);
+    console.error(e)
+    process.exit(1)
   })
   .finally(async () => {
-    await prisma.$disconnect();
-  });
+    await prisma.$disconnect()
+  })
