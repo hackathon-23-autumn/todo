@@ -5,7 +5,7 @@ import { Inter } from "next/font/google"
 import "bootstrap/dist/css/bootstrap.min.css"
 import Image from "next/image"
 import Head from "./head"
-import Date from '../components/date'
+import Date from "../components/date"
 
 // Next.js Tailwind Css Importing Stylesから追記
 export const metadata: Metadata = {
@@ -30,7 +30,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
                 className="img-fluid"
                 alt="main_logo"
               />
-            <Date />
+              <Date />
             </div>
             <div>{children}</div>
           </div>
