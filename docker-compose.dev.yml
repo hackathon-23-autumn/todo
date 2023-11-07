@@ -1,0 +1,45 @@
+version: "3"
+
+services:
+  next-app:
+    container_name: next-app
+    build:
+      context: ./next-app
+      dockerfile: dev.Dockerfile
+    ports:
+      - 3000:3000
+    volumes: # 開発即時反映のためのボリュームマウント
+      - ./next-app:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+    command: pnpm run dev
+    depends_on:
+      - postgres
+
+  postgres:
+    container_name: postgres
+    env_file:
+      - ./.env
+    build:
+      context: ./postgres
+      dockerfile: dev.Dockerfile
+    ports:
+      - ${DB_PORT}:5432
+    environment:
+      TZ: ${DB_TZ}
+      LANG: ${DB_LANG}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    volumes:
+      - db-store:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -d ${DB_NAME} -U ${DB_USER}"]
+      interval: 1m30s
+      timeout: 30s
+      retries: 5
+      start_period: 30s
+
+volumes:
+  db-store:

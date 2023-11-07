@@ -1,0 +1,6 @@
+.pnpm-store
+next-app/node_modules
+next-app/.next
+next-app/next-env.d.ts
+.gitignore
+.git
