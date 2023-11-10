@@ -35,6 +35,7 @@ const Todo = () => {
 
   // Todoリストから選択されたTodoを削除する
   const deleteTodo = async (index: number) => {
+    // Todo削除のAPIを送信
     const todo = todos[index]
     const response = await fetch(`/api/todos/${todo.id}`, {
       method: "DELETE",
@@ -43,11 +44,14 @@ const Todo = () => {
       const newTodos = [...todos]
       newTodos.splice(index, 1)
       setTodos(newTodos)
+      const data = await response.json()
+      console.log(data)
     }
   }
 
   // Todoのstatusを変更する
   const changeStatus = async (index: number) => {
+    // Todoのstatus変更のAPIを送信
     const todo = todos[index]
     const response = await fetch(`/api/todos/${todo.id}`, {
       method: "PATCH",
@@ -64,6 +68,8 @@ const Todo = () => {
         ...todos.slice(index + 1),
       ]
       setTodos(newTodos)
+      const data = await response.json()
+      console.log(data)
     }
   }
 
