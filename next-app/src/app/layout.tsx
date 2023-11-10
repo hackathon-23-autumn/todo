@@ -1,10 +1,11 @@
 // アプリケーションのすべてのルートに適用されるスタイル
+// Headコンポーネントはcomponentsディレクトリに移動
 import "./globals.css"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import "bootstrap/dist/css/bootstrap.min.css"
 import Image from "next/image"
-import Head from "./head"
+import Head from "../components/head"
 import Date from "../components/date"
 
 // Next.js Tailwind Css Importing Stylesから追記

@@ -34,17 +34,37 @@ const Todo = () => {
   }
 
   // Todoリストから選択されたTodoを削除する
-  const deleteTodo = (index: number) => {
-    const newTodos = [...todos]
-    newTodos.splice(index, 1)
-    setTodos(newTodos)
+  const deleteTodo = async (index: number) => {
+    const todo = todos[index]
+    const response = await fetch(`/api/todos/${todo.id}`, {
+      method: "DELETE",
+    })
+    if (response.ok) {
+      const newTodos = [...todos]
+      newTodos.splice(index, 1)
+      setTodos(newTodos)
+    }
   }
 
   // Todoのstatusを変更する
-  const changeStatus = (index: number) => {
-    const newTodos = [...todos]
-    newTodos[index].completed = !newTodos[index].completed
-    setTodos(newTodos)
+  const changeStatus = async (index: number) => {
+    const todo = todos[index]
+    const response = await fetch(`/api/todos/${todo.id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ completed: !todo.completed }),
+    })
+    if (response.ok) {
+      const updatedTodo = { ...todo, completed: !todo.completed }
+      const newTodos = [
+        ...todos.slice(0, index),
+        updatedTodo,
+        ...todos.slice(index + 1),
+      ]
+      setTodos(newTodos)
+    }
   }
 
   // ページ読み込み時に1度だけ、fetchData関数を呼び出し、TodoリストをAPIから非同期に取得する
@@ -65,7 +85,7 @@ const Todo = () => {
 
   return (
     <main className="flex-col py-2 px-4">
-      <label className="form-label text-4xl font-bold ">todo</label>
+      <label className="form-label text-4xl font-bold">todo</label>
       <div className="w-full py-6 px-8 bg-slate-200 shadow-md rounded-lg">
         <AddTodo changeText={changeText} addTodos={addTodos} text={text} />
         <MyTodoList

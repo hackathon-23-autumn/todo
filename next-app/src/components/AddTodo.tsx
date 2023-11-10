@@ -14,12 +14,13 @@ const AddTodo: React.FC<Props> = ({ text, changeText, addTodos }) => {
   // フォームが送信されたときに実行される関数
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault() // ページのリロードを防ぐ
+    // changeTextの内容をJSONデータとして/api/todosにPOSTする
     const response = await fetch(`/api/todos`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ todo: changeText }),
+      body: JSON.stringify({ todo: text }),
     })
     const data = await response.json()
     console.log(data)

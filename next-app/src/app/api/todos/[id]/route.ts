@@ -19,3 +19,23 @@ export async function PATCH() {
     },
   ])
 }
+
+export async function DELETE() {
+  return NextResponse.json([
+    {
+      id: 10,
+      todo: "todo10",
+      completed: true,
+    },
+    {
+      id: 11,
+      todo: "todo11",
+      completed: true,
+    },
+    {
+      id: 12,
+      todo: "todo12",
+      completed: true,
+    },
+  ])
+}
