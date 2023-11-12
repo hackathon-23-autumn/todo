@@ -12,8 +12,23 @@ type Props = {
 // React.FC<Props>…Reactの関数コンポーネントの型（Props）を宣言
 const AddTodo: React.FC<Props> = ({ text, changeText, addTodos }) => {
   // フォームが送信されたときに実行される関数
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault() // ページのリロードを防ぐ
+    // フォームがからの場合
+    if (!text.trim()) {
+      alert("Todoは空では追加できません")
+      return
+    }
+    // changeTextの内容をJSONデータとして/api/todosにPOSTする
+    const response = await fetch(`/api/todos`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ todo: text }),
+    })
+    const data = await response.json()
+    console.log(data)
     addTodos() // addTodos()を呼び出して新しいTodoを追加する
   }
 
