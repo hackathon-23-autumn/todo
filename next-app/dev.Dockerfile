@@ -11,4 +11,6 @@ COPY package.json pnpm-lock.yaml ./
 
 RUN pnpm install --frozen-lockfile
 
+RUN npx prisma generate
+
 CMD ["pnpm", "run", "dev"]

@@ -13,7 +13,8 @@ services:
       - /app/node_modules
     environment:
       - NODE_ENV=development
-    command: pnpm run dev
+      - DEBUG=prisma:client
+    command: pnpm run dev && npx prisma generate
     depends_on:
       - postgres
 
