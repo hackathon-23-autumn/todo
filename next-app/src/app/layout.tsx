@@ -1,11 +1,12 @@
 // アプリケーションのすべてのルートに適用されるスタイル
+// Headコンポーネントはcomponentsディレクトリに移動
 import "./globals.css"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import "bootstrap/dist/css/bootstrap.min.css"
 import Image from "next/image"
-import Head from "./head"
-import Date from '../components/date'
+import Head from "@/components/head"
+import Date from "@/components/date"
 
 // Next.js Tailwind Css Importing Stylesから追記
 export const metadata: Metadata = {
@@ -30,7 +31,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
                 className="img-fluid"
                 alt="main_logo"
               />
-            <Date />
+              <Date />
             </div>
             <div>{children}</div>
           </div>
