@@ -4,6 +4,7 @@ import { useEffect, useState } from "react" // テキスト入力とTodoリス�
 import AddTodo from "@/components/AddTodo"
 import MyTodoList from "@/components/MyTodoList"
 import Link from "next/link"
+import {signOut} from "next-auth/react"
 
 type Todo = {
   id: string
@@ -68,7 +69,16 @@ const changeStatus = (index: number) => {
           <MyTodoList todos={todos} deleteTodo={deleteTodo} changeStatus={changeStatus} />
         </div>
 
+        {/*
         <Link href="/" className="form-label text-lg font-bold">back</Link>
+        */}
+
+      <button
+        type="button"
+        className="flex flex-col mt-2 py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
+        onClick={() => signOut()}>
+        Sign Out
+      </button>
 
     </main>
   )
