@@ -3,7 +3,7 @@ import React from "react"
 // Todo型にcompletedプロパティを追加
 type Todo = {
   id: string
-  todo: string
+  title: string
   completed: boolean
 }
 
@@ -26,7 +26,7 @@ const MyTodoList: React.FC<Props> = ({ todos, deleteTodo, changeStatus }) => {
               : "bg-white border-blue-500"
           }`}
           key={index}>
-          <span>{todo.todo}</span>
+          <span>{todo.title}</span>
 
           <div>
             <button
