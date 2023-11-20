@@ -4,8 +4,11 @@ import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import "bootstrap/dist/css/bootstrap.min.css"
 import Image from "next/image"
-import Head from "./head"
-import Date from '../components/date'
+
+import Head from "@/components/head"
+import Date from "@/components/date"
+import NextAuthProvider from "@/providers/NextAuth"
+import React from "react"
 
 // Next.js Tailwind Css Importing Stylesから追記
 export const metadata: Metadata = {
@@ -15,28 +18,67 @@ export const metadata: Metadata = {
 
 const inter = Inter({ subsets: ["latin"] })
 
-const RootLayout = ({ children }: { children: React.ReactNode }) => {
+// const RootLayout = ({ children }: { children: React.ReactNode }) => {
+//   return (
+//     <html lang="ja">
+//       <Head />
+//       <body className={inter.className}>
+//         <div className="container text-center align-items-center vh-100">
+//           <div className="col">
+//             <div className="sticky inset-x-0 top-0">
+//               <Image
+//                 src="/main_logo.jpg"
+//                 width={1078}
+//                 height={273}
+//                 className="img-fluid"
+//                 alt="main_logo"
+//               />
+//               <Date />
+//             </div>
+//             <div>{children}</div>
+//           </div>
+//         </div>
+//       </body>
+//     </html>
+//   )
+// }
+
+// export default RootLayout
+
+interface RootLayoutProps {
+  children: React.ReactNode
+}
+
+// const RootLayout = ({ children }: { children: React.ReactNode }) => {
+const RootLayout: React.FC<RootLayoutProps> = ({
+  children,
+}: {
+  children: React.ReactNode
+}) => {
   return (
-    <html lang="ja">
+    <NextAuthProvider>
       <Head />
-      <body className={inter.className}>
-        <div className="container text-center align-items-center vh-100">
-          <div className="col">
-            <div className="sticky inset-x-0 top-0">
-              <Image
-                src="/main_logo.jpg"
-                width={1078}
-                height={273}
-                className="img-fluid"
-                alt="main_logo"
-              />
+
+      {/* ここに必要なメタデータやタイトルを設定 */}
+      {/* <title>Your Page Title</title>
+        <meta name="description" content="Your Page Description" /> */}
+
+      <div className="container text-center align-items-center vh-100">
+        <div className="col">
+          <div className="sticky inset-x-0 top-0">
+            <Image
+              src="/main_logo.jpg"
+              width={1078}
+              height={273}
+              className="img-fluid"
+              alt="main_logo"
+            />
             <Date />
-            </div>
-            <div>{children}</div>
           </div>
+          <div>{children}</div>
         </div>
-      </body>
-    </html>
+      </div>
+    </NextAuthProvider>
   )
 }
 
