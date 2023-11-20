@@ -3,12 +3,11 @@
 import { useEffect, useState } from "react" // テキスト入力とTodoリストの状態管理
 import AddTodo from "@/components/AddTodo"
 import MyTodoList from "@/components/MyTodoList"
-import Link from "next/link"
-import {signOut} from "next-auth/react"
+import { signOut } from "next-auth/react"
 
 type Todo = {
   id: string
-  todo: string
+  title: string
   completed: boolean
 }
 
@@ -23,14 +22,8 @@ const Todo = () => {
   }
 
   // テキスト入力フィールドに入力された値をTodoリストに追加する (追加後にテキスト入力フィールドを空にする)
-  const addTodos = () => {
-    const newTodos = [...todos]
-    newTodos.push({
-      id: new Date().getTime().toString(),
-      todo: text,
-      completed: false,
-    })
-    setTodos(newTodos)
+  const addTodos = (newTodo: Todo) => {
+    setTodos([...todos, newTodo])
     setText("")
   }
 
@@ -38,7 +31,7 @@ const Todo = () => {
   const deleteTodo = async (index: number) => {
     // Todo削除のAPIを送信
     const todo = todos[index]
-    const response = await fetch(`/api/todos/${todo.id}`, {
+    const response = await fetch(`/api/todo/${todo.id}`, {
       method: "DELETE",
     })
     if (response.ok) {
@@ -54,7 +47,7 @@ const Todo = () => {
   const changeStatus = async (index: number) => {
     // Todoのstatus変更のAPIを送信
     const todo = todos[index]
-    const response = await fetch(`/api/todos/${todo.id}`, {
+    const response = await fetch(`/api/todo/${todo.id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -77,38 +70,35 @@ const Todo = () => {
   // ページ読み込み時に1度だけ、fetchData関数を呼び出し、TodoリストをAPIから非同期に取得する
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch("/api/todos")
+      const response = await fetch("/api/todo")
       if (response.ok) {
         const jsonData: Todo[] = await response.json()
-        const todoArray: string[] = jsonData.map((item) => item.todo)
+        const todoArray: string[] = jsonData.map((item) => item.title)
         setTodos(jsonData)
       } else {
         console.error("API request failed")
       }
     }
-
     fetchData()
   }, [])
 
   return (
     <main className="flex-col py-2 px-4">
-
       <label className="form-label text-4xl font-bold ">todo</label>
-        <div className="w-full py-6 px-8 bg-slate-200 shadow-md rounded-lg">
-          <AddTodo  changeText={changeText} addTodos={addTodos} text={text} />
-          <MyTodoList 
-            todos={todos} 
-            deleteTodo={deleteTodo} 
-            changeStatus={changeStatus} />
-        </div>
-
+      <div className="w-full py-6 px-8 bg-slate-200 shadow-md rounded-lg">
+        <AddTodo changeText={changeText} addTodos={addTodos} text={text} />
+        <MyTodoList
+          todos={todos}
+          deleteTodo={deleteTodo}
+          changeStatus={changeStatus}
+        />
+      </div>
       <button
         type="button"
-        className="flex flex-col mt-2 py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
+        className="flex-col mt-2 py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
         onClick={() => signOut()}>
         Sign Out
       </button>
-
     </main>
   )
 }

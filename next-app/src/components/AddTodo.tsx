@@ -1,11 +1,12 @@
 import React from "react"
+import Todo from "../app/todo/page"
 
 // changeTextとaddTodosを受け取る (props)
 // Props(reactのコンポーネントの型定義) = (引数) => (返り値)
 type Props = {
   // textという文字列、changeTextという関数、addTodosという関数を受け取るオブジェクト
   changeText: (e: React.ChangeEvent<HTMLInputElement>) => void
-  addTodos: () => void
+  addTodos: (newTodo: Todo) => void
   text: string
 }
 
@@ -19,17 +20,20 @@ const AddTodo: React.FC<Props> = ({ text, changeText, addTodos }) => {
       alert("Todoは空では追加できません")
       return
     }
-    // changeTextの内容をJSONデータとして/api/todosにPOSTする
-    const response = await fetch(`/api/todos`, {
+    // changeTextの内容をJSONデータとして/api/todoにPOSTする
+    const response = await fetch(`/api/todo`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ todo: text }),
+      body: JSON.stringify({ title: text }),
     })
-    const data = await response.json()
-    console.log(data)
-    addTodos() // addTodos()を呼び出して新しいTodoを追加する
+    if (response.ok) {
+      const newTodo = await response.json()
+      addTodos(newTodo)
+    } else {
+      console.error("Todoの追加に失敗しました")
+    }
   }
 
   return (
