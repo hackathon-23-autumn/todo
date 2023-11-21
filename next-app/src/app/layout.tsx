@@ -1,14 +1,17 @@
 // アプリケーションのすべてのルートに適用されるスタイル
+// Headコンポーネントはcomponentsディレクトリに移動
 import "./globals.css"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import "bootstrap/dist/css/bootstrap.min.css"
 import Image from "next/image"
 
+
 import Head from "@/components/head"
 import Date from "@/components/date"
 import NextAuthProvider from "@/providers/NextAuth"
 import React from "react"
+
 
 // Next.js Tailwind Css Importing Stylesから追記
 export const metadata: Metadata = {
@@ -59,6 +62,7 @@ const RootLayout: React.FC<RootLayoutProps> = ({
     <NextAuthProvider>
       <Head />
 
+
       {/* ここに必要なメタデータやタイトルを設定 */}
       {/* <title>Your Page Title</title>
         <meta name="description" content="Your Page Description" /> */}
@@ -74,6 +78,7 @@ const RootLayout: React.FC<RootLayoutProps> = ({
               alt="main_logo"
             />
             <Date />
+
           </div>
           <div>{children}</div>
         </div>

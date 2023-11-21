@@ -1,6 +1,7 @@
 "use client"
 
 import { useRouter } from "next/navigation"
+import {signIn} from "next-auth/react"
 
 import { signIn } from "next-auth/react"
 import { useSession } from "next-auth/react"
@@ -12,6 +13,7 @@ const Home = () => {
 
   return (
     <main>
+
       {!session && (
         <button
           type="button"
@@ -24,6 +26,7 @@ const Home = () => {
           Sign in
         </button>
       )}
+
     </main>
   )
 }

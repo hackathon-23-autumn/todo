@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react" // テキスト入力とTodoリストの状態管理
 import AddTodo from "@/components/AddTodo"
 import MyTodoList from "@/components/MyTodoList"
-import Link from "next/link"
+import { signOut } from "next-auth/react"
 
 import { signOut } from "next-auth/react"
 import { useSession } from "next-auth/react"
@@ -11,7 +11,7 @@ import Image from "next/image"
 
 type Todo = {
   id: string
-  todo: string
+  title: string
   completed: boolean
 }
 
@@ -26,6 +26,7 @@ const Todo = () => {
   }
 
   // テキスト入力フィールドに入力された値をTodoリストに追加する (追加後にテキスト入力フィールドを空にする)
+
   const addTodos = () => {
     const newTodos = [...todos]
     newTodos.push({
@@ -53,19 +54,19 @@ const Todo = () => {
 
   const { data: session } = useSession()
 
+
   // ページ読み込み時に1度だけ、fetchData関数を呼び出し、TodoリストをAPIから非同期に取得する
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch("/api/todos")
+      const response = await fetch("/api/todo")
       if (response.ok) {
         const jsonData: Todo[] = await response.json()
-        const todoArray: string[] = jsonData.map((item) => item.todo)
+        const todoArray: string[] = jsonData.map((item) => item.title)
         setTodos(jsonData)
       } else {
         console.error("API request failed")
       }
     }
-
     fetchData()
   }, [])
 
@@ -81,6 +82,7 @@ const Todo = () => {
           changeStatus={changeStatus}
         />
       </div>
+
       {session && (
         <button
           type="button"
@@ -89,6 +91,7 @@ const Todo = () => {
           Sign Out
         </button>
       )}
+
     </main>
   )
 }

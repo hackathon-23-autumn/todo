@@ -19,3 +19,23 @@ export async function GET() {
     },
   ])
 }
+
+export async function POST() {
+  return NextResponse.json([
+    {
+      id: 4,
+      todo: "todo4",
+      completed: false,
+    },
+    {
+      id: 5,
+      todo: "todo5",
+      completed: false,
+    },
+    {
+      id: 6,
+      todo: "todo6",
+      completed: true,
+    },
+  ])
+}
